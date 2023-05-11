@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/SIgnup.dart';
+import 'package:test/home.dart';
+import 'package:test/screen/news/News.dart';
+import 'package:test/sharepref/SharePref.dart';
+import 'package:test/validation/validation.dart';
+
+import 'api/fetchNews.dart';
+import 'model/news.dart';
 
 void main() {
   runApp(MaterialApp(
-  home: TestApp(),
+    home: TestApp(),
   ));
 }
 
@@ -15,9 +23,30 @@ class TestApp extends StatefulWidget {
 }
 
 class _TestAppState extends State<TestApp> {
-  final  _emailcontroller = TextEditingController();
-  final  _passcontroller = TextEditingController();
- // final  _emailcontroller = TextEditingController();
+  //final  prefs = await SharedPreferences.getInstance();
+  final _emailcontroller = TextEditingController();
+  final _passcontroller = TextEditingController();
+
+  // final  _emailcontroller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    getString().then((value) {
+      setState(() {
+        String data=value?? 'nodata';
+        if(data =='valid'){
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => home()),
+            (route) => false,
+          );
+        }
+       print("Validation $data");
+      });
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,21 +61,23 @@ class _TestAppState extends State<TestApp> {
           margin: EdgeInsets.only(top: 150),
           child: Column(
             children: [
-                Center(
-                  child: Container(
-                    child: Text("Hello User",
-                    style: TextStyle(fontSize: 24,color: Colors.indigo),),
+              Center(
+                child: Container(
+                  child: Text(
+                    "Hello User",
+                    style: TextStyle(fontSize: 24, color: Colors.indigo),
                   ),
                 ),
-                 Center(
-                   child: Container(
-                    width: 250,
-                    child: TextFormField(
-                      decoration: InputDecoration(labelText: "Enter Email"),
-                      controller: _emailcontroller,
-                    ),
+              ),
+              Center(
+                child: Container(
+                  width: 250,
+                  child: TextFormField(
+                    decoration: InputDecoration(labelText: "Enter Email"),
+                    controller: _emailcontroller,
+                  ),
                 ),
-                 ),
+              ),
               Center(
                 child: Container(
                   width: 250,
@@ -61,12 +92,17 @@ class _TestAppState extends State<TestApp> {
                   margin: EdgeInsets.only(top: 25),
                   width: 250,
                   child: ElevatedButton(
-                    onPressed: (){
-                      if(_emailcontroller.text=="Htoo" && _passcontroller.text=="123"){
-                        print("Correct");
-                      }else print("Wrong");
+                    onPressed: () {
+                        if(validaton(_emailcontroller.text, _passcontroller.text)){
+                          savedata('valid');
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => home()),
+                            (route) => false,
+                          );
+                        }
                     },
-                    child: Text("Login")  ,
+                    child: Text("Login"),
                   ),
                 ),
               ),
@@ -77,16 +113,17 @@ class _TestAppState extends State<TestApp> {
                   child: Row(
                     children: [
                       Expanded(
-                          child: Text("For News Users"),
+                        child: Text("For News Users"),
                       ),
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Signup()),
+                            context,
+                            MaterialPageRoute(builder: (context) => Signup()),
                           );
                         },
-                        child: Text("Sign Up",
+                        child: Text(
+                          "Sign Up",
                           style: TextStyle(color: Colors.indigo),
                         ),
                       )
@@ -98,6 +135,6 @@ class _TestAppState extends State<TestApp> {
           ),
         ),
       ),
-      );
+    );
   }
 }
