@@ -3,7 +3,10 @@
 
 import 'package:flutter/material.dart';
 
-import '../screen/posts/postdetail.dart';
+import '../../posts/postdetail.dart';
+
+
+
 
 class postitem extends StatelessWidget {
   final String title;

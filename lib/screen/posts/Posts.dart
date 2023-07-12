@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../api/fetchPosts.dart';
-import '../../listitem/postitem.dart';
-import '../../model/post.dart';
+import '../../network/api/fetchPosts.dart';
+import '../../network/model/post.dart';
+import '../database/listitem/postitem.dart';
+
+
 
 class posts extends StatefulWidget {
   const posts({Key? key}) : super(key: key);

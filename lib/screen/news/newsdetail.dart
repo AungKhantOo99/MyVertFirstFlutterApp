@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../model/news.dart';
+import '../../network/model/news.dart';
+
+
 
 class newsdetail extends StatelessWidget {
   Articles? data=Articles();

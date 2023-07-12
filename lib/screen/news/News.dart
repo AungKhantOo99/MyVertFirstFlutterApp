@@ -2,11 +2,11 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:test/api/fetchNews.dart';
-import 'package:test/listitem/newsitem.dart';
-import 'package:test/model/news.dart';
+import 'package:test/network/api/fetchNews.dart';
 
-import '../../listitem/postitem.dart';
+import '../../network/model/news.dart';
+import '../database/listitem/newsitem.dart';
+
 
 class News extends StatefulWidget {
   const News({Key? key}) : super(key: key);

@@ -2,9 +2,10 @@
 
 
 import 'package:flutter/material.dart';
-import '../model/news.dart';
-import '../screen/news/newsdetail.dart';
-import '../screen/posts/postdetail.dart';
+
+import '../../../network/model/news.dart';
+import '../../news/newsdetail.dart';
+
 
 class newsitem extends StatelessWidget {
    Articles? data=Articles();
